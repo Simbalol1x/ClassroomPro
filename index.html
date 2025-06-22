@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Pro</title>
+    <link rel="stylesheet" href="/styles.css">
+
+    <!-- ADDED: Links for Toastify.js Notifications -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+</head>
+<body>
+    <div class="container-wrapper">
+        <div class="top-bar">
+            <h1>Classroom Pro</h1>
+            <div id="userInfoDisplay" class="user-info-display hidden">
+                <p>Welcome, <span id="loggedInUserFullName">User</span>! (<span id="loggedInUserRole">Role</span>)</p>
+                <button id="profileBtn" class="btn-secondary">Profile</button>
+                <button id="logoutBtn">Logout</button>
+                <button id="darkModeToggle" class="btn-secondary">Toggle Theme</button>
+            </div>
+        </div>
+
+        <div class="main-container">
+            <!-- AUTHENTICATION (shown when logged out) -->
+            <div id="authSection">
+                <div id="loginSectionWrapper" class="card">
+                    <h2>Login</h2>
+                    <form id="loginForm">
+                    <div><label for="loginEmail">Email:</label><input type="email" id="loginEmail" name="email" autocomplete="username" required></div>
+                    <div><label for="loginPassword">Password:</label><input type="password" id="loginPassword" name="password" autocomplete="current-password" required></div>
+                        <button type="submit" id="loginSubmitBtn">Login</button>
+                    </form>
+                    <div id="loginMessage" class="message-area"></div>
+                    <p class="text-center mt-2">Don't have an account? <button type="button" id="showRegisterFormBtn" class="link-button">Register here</button></p>
+                    <p class="text-center mt-2"><button type="button" id="showForgotPasswordFormBtn" class="link-button">Forgot Password?</button></p>
+                </div>
+                <div id="registerSectionWrapper" class="card hidden">
+                    <h2>Register</h2>
+                    <form id="registerForm">
+                        <div><label for="regFirstName">First Name:</label><input type="text" id="regFirstName" name="firstName" required></div>
+                        <div><label for="regLastName">Last Name:</label><input type="text" id="regLastName" name="lastName" required></div>
+                        <div><label for="regEmail">Email:</label><input type="email" id="regEmail" name="email" required></div>
+                        
+                        <!-- UPDATED: Password Section with new elements -->
+                        <div>
+                            <label for="regPassword">Password (min 8 characters, mix case, num, symbol):</label>
+                            <div class="password-input-container">
+                                <input type="password" id="regPassword" name="password" autocomplete="new-password" required>
+                                <button type="button" id="togglePasswordVisibility" class="password-toggle-btn">👁️</button>
+                            </div>
+                        </div>
+                        <div id="password-strength-meter" class="password-strength-meter">
+                            <div id="password-strength-bar" class="password-strength-bar"></div>
+                        </div>
+                        <div id="password-strength-text" class="password-strength-text"></div>
+                        <!-- END of Updated Section -->
+
+                        <div><label for="regPasswordConfirm">Confirm Password:</label><input type="password" id="regPasswordConfirm" name="passwordConfirm" autocomplete="new-password" required></div>
+                        <div id="password-confirm-message" class="password-confirm-message"></div>
+                        <div><label for="regRole">Role:</label><select id="regRole" name="role" required><option value="" disabled selected>Select a role...</option><option value="student">Student</option><option value="teacher">Teacher</option></select></div>
+                        <button type="submit" id="registerSubmitBtn">Register</button>
+                    </form>
+                    <div id="registerMessage" class="message-area"></div>
+                    <p class="text-center mt-2">Already registered? <button type="button" id="showLoginFormBtn" class="link-button">Login here</button></p>
+                </div>
+                <div id="forgotPasswordSectionWrapper" class="card hidden">
+                    <h2>Forgot Password</h2>
+                    <form id="forgotPasswordForm">
+                        <div><label for="forgotPasswordEmail">Enter your account email:</label><input type="email" id="forgotPasswordEmail" name="email" required></div>
+                        <button type="submit" id="forgotPasswordSubmitBtn">Send Reset Link</button>
+                    </form>
+                    <div id="forgotPasswordMessage" class="message-area"></div>
+                    <p class="text-center mt-2"><button type="button" id="backToLoginFromForgotBtn" class="link-button">Back to Login</button></p>
+                </div>
+            </div>
+
+            <!-- MAIN CONTENT (shown when logged in) -->
+            <div id="mainContent" class="hidden">
+                <!-- PROFILE VIEW -->
+                <div id="profileSection" class="hidden card">
+                    <h2>My Profile</h2>
+                    <div class="form-section">
+                        <h3>My Info</h3>
+                        <p class="static-info">Email: <strong id="profileEmailDisplay"></strong></p>
+                        <form id="profileInfoForm">
+                            <div><label for="profileFirstName">First Name:</label><input type="text" id="profileFirstName" required></div>
+                            <div><label for="profileLastName">Last Name:</label><input type="text" id="profileLastName" required></div>
+                            <button type="submit" id="updateProfileBtn">Update Info</button>
+                        </form>
+                        <div id="profileInfoMessage" class="message-area"></div>
+                    </div>
+                    <div class="form-section">
+                        <h3>Change Password</h3>
+                        <form id="changePasswordForm">
+                        <div><label for="currentPassword">Current Password:</label><input type="password" id="currentPassword" autocomplete="current-password" required></div>
+                        <div><label for="newPassword">New Password:</label><input type="password" id="newPassword" autocomplete="new-password" required></div>
+                        <div><label for="confirmNewPassword">Confirm New Password:</label><input type="password" id="confirmNewPassword" autocomplete="new-password" required></div>
+                            <button type="submit" id="changePasswordBtn">Change Password</button>
+                        </form>
+                        <div id="changePasswordMessage" class="message-area"></div>
+                    </div>
+                     <button id="backToDashboardBtn_profile" class="btn-secondary back-to-dashboard-btn" style="margin-top: 1rem;">Back to Dashboard</button>
+                </div>
+                
+                <!-- CLASS ANNOUNCEMENTS VIEW -->
+                <div id="classViewSection" class="hidden card">
+                    <div class="class-view-header">
+                        <h2 id="classViewName" style="text-align:left; border-bottom: none; margin: 0;"></h2>
+                        <button id="backToDashboardBtn_classView" class="btn-secondary back-to-dashboard-btn">Back to Dashboard</button>
+                    </div>
+                    <div class="class-view-content">
+                        <div class="class-view-panel" id="announcementsSection">
+                            <h3>Announcements</h3>
+                            <div id="postAnnouncementFormDiv" class="hidden">
+                                <form id="announcementForm">
+                                    <div><label for="announcementTitleInput">Title:</label><input type="text" id="announcementTitleInput" required></div>
+                                    <div><label for="announcementContent">Content:</label><textarea id="announcementContent" rows="4" required></textarea></div>
+                                    <button type="submit" id="postAnnouncementBtn">Post</button>
+                                </form>
+                            </div>
+                            <div id="announcementFormMessage" class="message-area"></div>
+                            <div id="announcementsList"></div>
+                        </div>
+                        <!-- Removed unused studentClassMembersView panel -->
+                    </div>
+                </div>
+
+                <!-- TEACHER DASHBOARD -->
+                <div id="teacherDashboard" class="hidden">
+                    <div id="classActionSection" class="card">
+                        <h2 id="classFormTitle">Create New Class</h2>
+                        <form id="classForm">
+                            <input type="hidden" id="editingClassIdInput">
+                            <div><label for="classNameInput_form">Class Name:</label><input type="text" id="classNameInput_form" required></div>
+                            <div><label for="classDescriptionInput_form">Description (Optional):</label><textarea id="classDescriptionInput_form" rows="3"></textarea></div>
+                            <div><label for="classJoinPasswordInput_form">Join Password (Optional):</label><input type="password" id="classJoinPasswordInput_form"></div>
+                            <button type="submit" id="submitClassBtn">Create Class</button>
+                            <button type="button" id="cancelClassEditBtn" class="btn-secondary hidden" style="margin-left: 10px;">Cancel</button>
+                        </form>
+                        <div id="classFormMessage" class="message-area"></div>
+                    </div>
+                    <div id="taughtClassesSection" class="card" style="margin-top: 2rem;">
+                        <h2>My Classes</h2>
+                        <div><label for="filterTaughtClassesInput">Filter classes by name:</label>
+                            <input type="text" id="filterTaughtClassesInput" placeholder="Enter class name...">
+                        </div>
+                        <button id="loadTaughtClassesBtn" class="btn-secondary" style="margin-bottom: 1rem;">Refresh</button>
+                        <div id="myTaughtClassesList"></div>
+                    </div>
+                </div>
+                
+                <!-- TEACHER ROSTER VIEW (Separate from Dashboard) -->
+                <div id="classRosterSection" class="hidden card">
+                    <h2 id="rosterClassName">Class Roster</h2>
+                    <button id="backToTaughtClassesBtn" class="btn-secondary back-to-dashboard-btn" style="margin-bottom: 1rem;">Back to Dashboard</button>
+                    <table>
+                        <thead></thead> <!-- Dynamically populated by app.js -->
+                        <tbody id="classRosterTableBody"></tbody>
+                    </table>
+                    <div id="classRosterMessage" class="message-area"></div>
+                </div>
+
+                <!-- STUDENT DASHBOARD -->
+                <div id="studentDashboard" class="hidden">
+                    <div id="joinClassSection" class="card">
+                        <h2>Join a Class</h2>
+                        <form id="joinClassForm">
+                            <div><label for="classCodeInput">Class Code:</label><input type="text" id="classCodeInput" required></div>
+                            <div><label for="classJoinPassword_student">Password (if required):</label><input type="password" id="classJoinPassword_student"></div>
+                            <button type="submit" id="joinClassSubmitBtn">Join Class</button>
+                        </form>
+                        <div id="joinClassMessage" class="message-area"></div>
+                    </div>
+                    <div id="enrolledClassesSection" class="card" style="margin-top: 2rem;">
+                        <h2>My Classes</h2>
+                        <div><label for="filterEnrolledClassesInput">Filter classes by name:</label>
+                            <input type="text" id="filterEnrolledClassesInput" placeholder="Enter class name...">
+                        </div>
+                        <button id="loadEnrolledClassesBtn" class="btn-secondary" style="margin-bottom: 1rem;">Refresh</button>
+                        <div id="myEnrolledClassesList"></div>
+                    </div>
+                </div>
+                <!-- Removed obsolete studentClassLeaderboardSection as its functionality is merged into classRosterSection -->
+            </div>
+        </div>
+
+        <!-- Removed unused toastContainer as Toastify appends to body by default -->
+        <footer class="footer"><p id="copyrightYear"></p></footer>
+    </div>
+    
+    <div id="editAnnouncementModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2>Edit Announcement</h2>
+            <form id="editAnnouncementForm">
+                <input type="hidden" id="editAnnouncementIdInput">
+                <div><label for="editAnnouncementTitleInput">Title:</label><input type="text" id="editAnnouncementTitleInput" required></div>
+                <div><label for="editAnnouncementContentInput">Content:</label><textarea id="editAnnouncementContentInput" rows="6" required></textarea></div>
+                <div class="modal-actions">
+                    <button type="submit" id="saveAnnouncementChangesBtn">Save</button>
+                    <button type="button" id="cancelAnnouncementEditBtn" class="btn-secondary">Cancel</button>
+                </div>
+            </form>
+            <div id="editAnnouncementMessage" class="message-area"></div>
+        </div>
+    </div>
+    
+    <script src="/app.js"></script>
+</body>
+</html>
