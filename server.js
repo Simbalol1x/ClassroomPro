@@ -38,6 +38,10 @@ app.use('/api/', apiLimiter);
 app.use('/api/users', userRoutes);
 app.use('/api/classes', classRoutes);
 
+// To:
+app.use('/users', userRoutes);
+app.use('/classes', classRoutes);
+
 // --- SERVE STATIC FILES (FRONTEND) ---
 // This serves your index.html, app.js, and styles.css
 app.use(express.static(path.join(__dirname, 'public')));
@@ -63,3 +67,4 @@ db.sequelize.sync().then(() => {
 /*  <-- ADD THIS LINE */
 
 module.exports = app;
+
