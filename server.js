@@ -16,7 +16,17 @@ const app = express();
 
 // --- MIDDLEWARE ---
 // Enable CORS for all routes
-app.use(cors());
+app.use(cors({
+    origin: [
+        'https://classroom-pro-git-main-simbalol1xs-projects.vercel.app',
+        'https://your-actual-vercel-domain.vercel.app', // Add your real domain
+        'http://localhost:3000', // For local development
+        'http://localhost:3001'
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Basic security headers
 app.use(helmet());
@@ -67,4 +77,5 @@ db.sequelize.sync().then(() => {
 /*  <-- ADD THIS LINE */
 
 module.exports = app;
+
 
