@@ -1,11 +1,10 @@
-// The NEW map (AFTER)
 {
     "version": 2,
     "builds": [
         {
-            "src": "server.js", // We tell it where the main brain is
+            "src": "server.js", 
             "use": "@vercel/node",
-            "config": { "includeFiles": ["models/**", "routes/**", "config/**", "utils/**"] } //...and tell it to pack all the other important folders!
+            "config": { "includeFiles": ["models/**", "routes/**", "config/**", "utils/**"] }
         }
     ],
     "rewrites": [
