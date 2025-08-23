@@ -35,8 +35,8 @@ const apiLimiter = rateLimit({
 app.use('/api/', apiLimiter);
 
 // --- API ROUTES ---
-app.use('/api/users', userRoutes);
-app.use('/api/classes', classRoutes);
+app.use('//users', userRoutes);
+app.use('//classes', classRoutes);
 
 // --- SERVE STATIC FILES (FRONTEND) ---
 // This serves your index.html, app.js, and styles.css
@@ -63,4 +63,5 @@ db.sequelize.sync().then(() => {
 /*  <-- ADD THIS LINE */
 
 module.exports = app;
+
 
