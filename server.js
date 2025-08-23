@@ -16,8 +16,10 @@ const app = express();
 
 // --- MIDDLEWARE ---
 // Enable CORS for all routes
-app.use(cors());
-
+const corsOptions = {
+    origin: 'https://simbalol1x.github.io' // This is the permission slip!
+};
+app.use(cors(corsOptions));
 // Basic security headers
 app.use(helmet());
 
@@ -63,5 +65,6 @@ db.sequelize.sync().then(() => {
 /*  <-- ADD THIS LINE */
 
 module.exports = app;
+
 
 
