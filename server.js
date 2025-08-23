@@ -11,25 +11,30 @@ const db = require('./models');
 const userRoutes = require('./routes/userRoutes');
 const classRoutes = require('./routes/classRoutes');
 
-// --- APP INITIALIZATION ---
 const app = express();
 
-// --- MIDDLEWARE ---
-// Enable CORS for all routes
+// --- UPDATED CORS CONFIGURATION ---
 app.use(cors({
     origin: [
-        'https://simbalol1x.github.io/ClassroomPro/',
-        'https://classroom-fnturixy0-simbalol1xs-projects.vercel.app', // Your other domain from screenshot
+        'https://simbalolix.github.io', // Your GitHub Pages
+        'https://classroom-pro-git-main-simbalol1xs-projects.vercel.app',
         'http://localhost:3000',
         'http://localhost:3001'
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With'],
+    optionsSuccessStatus: 200
 }));
+
+// Handle preflight requests
 app.options('*', cors());
+
 // Basic security headers
-app.use(helmet());
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
+
 
 // Body parsing middleware
 app.use(express.json());
@@ -73,6 +78,7 @@ db.sequelize.sync().then(() => {
 /*  <-- ADD THIS LINE */
 
 module.exports = app;
+
 
 
 
