@@ -19,15 +19,15 @@ const app = express();
 app.use(cors({
     origin: [
         'https://classroom-pro-git-main-simbalol1xs-projects.vercel.app',
-        'https://your-actual-vercel-domain.vercel.app', // Add your real domain
-        'http://localhost:3000', // For local development
+        'https://classroom-fnturixy0-simbalol1xs-projects.vercel.app', // Your other domain from screenshot
+        'http://localhost:3000',
         'http://localhost:3001'
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
+app.options('*', cors());
 // Basic security headers
 app.use(helmet());
 
@@ -47,10 +47,6 @@ app.use('/api/', apiLimiter);
 // --- API ROUTES ---
 app.use('/api/users', userRoutes);
 app.use('/api/classes', classRoutes);
-
-// To:
-app.use('/users', userRoutes);
-app.use('/classes', classRoutes);
 
 // --- SERVE STATIC FILES (FRONTEND) ---
 // This serves your index.html, app.js, and styles.css
@@ -77,5 +73,6 @@ db.sequelize.sync().then(() => {
 /*  <-- ADD THIS LINE */
 
 module.exports = app;
+
 
 
