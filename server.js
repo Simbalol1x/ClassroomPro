@@ -18,7 +18,7 @@ const app = express();
 // Enable CORS for all routes
 app.use(cors({
     origin: [
-        'https://classroom-pro-git-main-simbalol1xs-projects.vercel.app',
+        'https://simbalol1x.github.io/ClassroomPro/',
         'https://classroom-fnturixy0-simbalol1xs-projects.vercel.app', // Your other domain from screenshot
         'http://localhost:3000',
         'http://localhost:3001'
@@ -73,6 +73,7 @@ db.sequelize.sync().then(() => {
 /*  <-- ADD THIS LINE */
 
 module.exports = app;
+
 
 
 
