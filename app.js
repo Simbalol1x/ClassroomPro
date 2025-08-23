@@ -1,7 +1,7 @@
 // app.js (Final Corrected Version - Student Leaderboard Included)
 
 // --- 1. GLOBAL STATE & CONSTANTS ---
-const API_BASE_URL = 'classroom-g2n3tlv19-simbalol1xs-projects.vercel.app/api';
+const API_BASE_URL = 'https://classroom-rbip8t8mu-simbalol1xs-projects.vercel.app//api';
 let currentUser = null;
 let isEditingClass = false;
 let taughtClassesCache = [];
@@ -629,5 +629,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(copyrightYearEl) copyrightYearEl.textContent = `© ${new Date().getFullYear()} Classroom Pro.`;
     console.log("Classroom Pro App Initialized (Final with Notification Logic)");
 });
+
 
 
